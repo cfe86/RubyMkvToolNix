@@ -11,10 +11,6 @@ module MkvToolNix
           @property = property
           @removable = removable
         end
-
-        def value
-          @property
-        end
       end
     end
   end

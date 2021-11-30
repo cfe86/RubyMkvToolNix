@@ -2,12 +2,14 @@
 
 Gem::Specification.new do |spec|
   spec.name          = 'mkvtoolnix'
-  spec.version       = '0.0.1'
+  spec.version       = '0.7.0'
   spec.authors       = ['Christian Feier']
   spec.email         = ['Christian.Feier@gmail.com']
 
-  spec.summary       = 'Sum'
-  spec.description   = 'Desc'
+  spec.summary       = 'A wrapper for MkvToolNix https://mkvtoolnix.download/ to create, alter and inspect MKV files. For more'\
+                        ' information, please check the github page: https://github.com/cfe86/RubyMkvToolNix'
+  spec.description   = 'A wrapper for MkvToolNix https://mkvtoolnix.download/ to create, alter and inspect MKV files.'\
+                       'Currently mkvpropedit and mkvextract are fully implemented. mkvmerge is in progress.'
   spec.homepage      = 'https://github.com/cfe86/RubyMkvToolNix'
   spec.license       = 'MIT'
   spec.required_ruby_version = '>= 2.5.0'
@@ -26,7 +28,9 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   # Uncomment to register a new dependency of your gem
-  # spec.add_dependency "example-gem", "~> 1.0"
+  spec.add_dependency 'rake', '>=0'
+  spec.add_dependency 'rspec', '>=0'
+  spec.add_dependency 'rubocop', '>=0'
 
   # For more information and examples about making a new gem, checkout our
   # guide at: https://bundler.io/guides/creating_gem.html

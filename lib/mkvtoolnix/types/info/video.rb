@@ -25,10 +25,10 @@ module MkvToolNix
               track_number: props['number'])
         end
 
-        def initialize(id:, uid:, name:, codec:, codec_id:, codec_name:, codec_inherent_delay:, is_default:, is_enabled:,
-                       is_commentary:, is_hearing_impaired:, is_original:, is_text_descriptions:, is_visual_impaired:,
-                       is_forced:, language:, language_ietf:, packetizer:, pixel_dimension:, display_dimension:,
-                       display_unit:, cropping:, stereo_mode:, track_number:)
+        def initialize(id:, uid:, name:, codec:, codec_id:, codec_name:, codec_inherent_delay:, is_default:,
+                       is_enabled:, is_commentary:, is_hearing_impaired:, is_original:, is_text_descriptions:,
+                       is_visual_impaired:, is_forced:, language:, language_ietf:, packetizer:, pixel_dimension:,
+                       display_dimension:, display_unit:, cropping:, stereo_mode:, track_number:)
           @id = id
           @uid = uid
           @name = name

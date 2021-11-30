@@ -18,7 +18,8 @@ require 'mkvtoolnix/types/propedit/video_property'
 require 'mkvtoolnix/types/propedit/info_property'
 require 'mkvtoolnix/types/propedit/subtitle_property'
 
-require 'mkvtoolnix/types/extract/Track'
+require 'mkvtoolnix/types/extract/track'
+require 'mkvtoolnix/types/extract/attachment'
 
 require 'mkvtoolnix/types/info/mkv_container'
 require 'mkvtoolnix/types/info/audio'
@@ -53,6 +54,10 @@ module MkvToolNix
       @mkvextract = Modules::MkvExtract.new(bin_path)
     end
 
+    def info(file)
+      @mkvmerge.info(file)
+    end
+
     def abort_at_warning(abort = true)
       @mkvpropedit.abort_at_warning = abort
       @mkvextract.abort_at_warning = abort
@@ -70,7 +75,9 @@ end
 # b = a.find_property('codec-name')
 # puts a
 # e = MkvToolNix::Types::PropEdit::SubtitleProperty::CODEC_ID
-# mkv = MkvToolNix.init.abort_at_warning
+mkv = MkvToolNix.init.abort_at_warning
+a = mkv.info('/Users/chris/mkv/full_fields/Axel.mkv')
+puts a
 # ext = mkv.mkvextract
 # ext.extract_tracks('/Users/chris/mkv/full_fields/Axel.mkv', [MkvToolNix::Types::Extract::Track.new(1, '/Users/chris/mkv/full_fields/out.eac3')])
 # pe = mkv.mkvpropedit
@@ -96,3 +103,5 @@ end
 #
 # tracks = json['tracks']
 # puts tracks
+#
+#

@@ -21,17 +21,19 @@ module MkvToolNix
           subtitle_hash = tracks.select { |it| it['type'] == 'subtitles' }
           subtitles = subtitle_hash.nil? ? [] : subtitle_hash.map { |it| Subtitle.create(it) }
 
-          new(title: props['title'], file_name: hash['file_name'], format_version: hash['identification_format_version'],
-              type: container['type'], is_supported: container['supported'], is_recognized: container['recognized'],
-              container_type: props['container_type'], date_utc: props['date_utc'], duration_in_nano: props['duration'],
-              is_providing_timestamps: props['is_providing_timestamps'], mux_application: props['muxing_application'],
-              segment_uid: props['segment_uid'], writing_application: props['writing_application'],
-              attachments: attachments, videos: videos, audios: audios, subtitles: subtitles)
+          new(title: props['title'], file_name: hash['file_name'],
+              format_version: hash['identification_format_version'], type: container['type'],
+              is_supported: container['supported'], is_recognized: container['recognized'],
+              container_type: props['container_type'], date_utc: props['date_utc'],
+              duration_in_nano: props['duration'], is_providing_timestamps: props['is_providing_timestamps'],
+              mux_application: props['muxing_application'], segment_uid: props['segment_uid'],
+              writing_application: props['writing_application'], attachments: attachments, videos: videos,
+              audios: audios, subtitles: subtitles)
         end
 
-        def initialize(title:, file_name:, format_version:, type:, is_supported:, is_recognized:, container_type:, date_utc:,
-                       duration_in_nano:, is_providing_timestamps:, mux_application:, segment_uid:, writing_application:,
-                       attachments:, videos:, audios:, subtitles:)
+        def initialize(title:, file_name:, format_version:, type:, is_supported:, is_recognized:, container_type:,
+                       date_utc:, duration_in_nano:, is_providing_timestamps:, mux_application:, segment_uid:,
+                       writing_application:, attachments:, videos:, audios:, subtitles:)
           @title = title
           @file_name = file_name
           @format_version = format_version

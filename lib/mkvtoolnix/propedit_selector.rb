@@ -3,33 +3,32 @@
 module MkvToolNix
   # https://mkvtoolnix.download/doc/mkvpropedit.html#mkvpropedit.edit_selectors
   module PropEditSelector
-
     def self.for_info
       'info'
     end
 
-    def self.for_nth_track(n)
-      raise Errors::MkvToolNixError, "Number must be > 0, got #{n}" if n.nil? || n.negative?
+    def self.for_nth_track(nth)
+      raise Errors::MkvToolNixError, "Number must be > 0, got #{nth}" if nth.nil? || nth.negative?
 
-      "track:#{n}"
+      "track:#{nth}"
     end
 
-    def self.for_nth_video(n)
-      raise Errors::MkvToolNixError, "Number must be > 0, got #{n}" if n.nil? || n.negative?
+    def self.for_nth_video(nth)
+      raise Errors::MkvToolNixError, "Number must be > 0, got #{nth}" if nth.nil? || nth.negative?
 
-      "track:v#{n}"
+      "track:v#{nth}"
     end
 
-    def self.for_nth_audio(n)
-      raise Errors::MkvToolNixError, "Number must be > 0, got #{n}" if n.nil? || n.negative?
+    def self.for_nth_audio(nth)
+      raise Errors::MkvToolNixError, "Number must be > 0, got #{nth}" if nth.nil? || nth.negative?
 
-      "track:a#{n}"
+      "track:a#{nth}"
     end
 
-    def self.for_nth_subtitle(n)
-      raise Errors::MkvToolNixError, "Number must be > 0, got #{n}" if n.nil? || n.negative?
+    def self.for_nth_subtitle(nth)
+      raise Errors::MkvToolNixError, "Number must be > 0, got #{nth}" if nth.nil? || nth.negative?
 
-      "track:s#{n}"
+      "track:s#{nth}"
     end
 
     def self.by_track_number(track_number)
