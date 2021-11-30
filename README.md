@@ -46,8 +46,8 @@ mkv = MkvToolNix.mkv_bin_path('/users/thats_me/mkvtoolnix/bin/')
 if you need to provide a binary path. 
 
 Optionally, you can also pass some more flags:
-* `abort_at_warning` - which stops the process at the first warning (otherwise warnings will be ignored)
-* `disable_language_ietf` - per default, if the `language` property in `mkvpropedit` will be set, the field `language_ietf` will be updated automatically. If this is disabled, the `language_ietf` field will not be touched.
+* `abort_at_warning` - (default: `false`) which stops the process at the first warning (otherwise warnings will be ignored)
+* `disable_language_ietf` - (default: `false`) per default, if the `language` property in `mkvpropedit` will be set, the field `language_ietf` will be updated automatically. If this is disabled, the `language_ietf` field will not be touched.
 
 To set an additional option, just chain it together when initializing:
 ```ruby
@@ -64,7 +64,29 @@ merge = mkv.mkvmerge # currently not implemented
 to analyze a file, the `mkvmerge` can be used, or to shorten it, the `info(file)` is also available in the `mkv` instance itself
 ```ruby
 container_info = mkv.info('myFile.mkv')
-# => a big file with all available information 
+# => biiiig instance with lot of information
+# #<MkvToolNix::Types::Info::MkvContainer:0x000000014dbf9278
+# @attachments=[#<MkvToolNix::Types::Info::Attachment:0x000000014dbf97c8 @content_type="jpeg/jpg", @description="--update-attachment", @file_name="new name", @id=1, @size_in_b=26457, @uid=12345>],
+#  @audios=
+#    [#<MkvToolNix::Types::Info::Audio:0x000000014dbf9368
+#      @bit_depth=nil,
+#      @channels=2,
+#      @codec="E-AC-3",
+#      ...
+#    ],
+#  @container_type=17,
+#  @file_name="myFile.mkv",
+#  @type="Matroska",
+#  ...,
+#  @videos=
+#    [#<MkvToolNix::Types::Info::Video:0x000000014dbf9688
+#      @codec="AVC/H.264/MPEG-4p10",
+#      @codec_id="V_MPEG4/ISO/AVC",
+#      @stereo_mode=nil,
+#      @track_number=1,
+#      @uid=219622901820485794>,
+#      ...],
+#  ...
 ```
 
 ### mkvpropedit
