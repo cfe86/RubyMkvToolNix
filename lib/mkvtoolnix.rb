@@ -27,9 +27,17 @@ require 'mkvtoolnix/types/info/subtitle'
 require 'mkvtoolnix/types/info/video'
 require 'mkvtoolnix/types/info/attachment'
 
-require 'mkvtoolnix/modules/mkvmerge'
+require 'mkvtoolnix/types/merge/attachment'
+require 'mkvtoolnix/types/merge/chapter'
+require 'mkvtoolnix/types/merge/input_track_options'
+require 'mkvtoolnix/types/merge/input_file'
+require 'mkvtoolnix/types/merge/output_control'
+require 'mkvtoolnix/types/merge/segment_info'
+require 'mkvtoolnix/types/merge/tags'
+
 require 'mkvtoolnix/modules/mkvpropedit'
 require 'mkvtoolnix/modules/mkvextract'
+require 'mkvtoolnix/modules/mkvmerge'
 
 module MkvToolNix
 
@@ -64,7 +72,12 @@ module MkvToolNix
 
     def disable_language_ietf(disabled: true)
       @mkvpropedit.disable_language_ietf = disabled
+      @mkvmerge.disable_language_ietf = disabled
       self
+    end
+
+    def default_language(language = 'und')
+      @mkvmerge.default_language = language
     end
   end
 end
