@@ -22,8 +22,8 @@ module MkvToolNix
         result.stdout.strip
       end
 
-      def merge(output_file, *input_files, attachments: nil, chapter_options: nil, tag_options: nil, output_control: nil,
-                segment_info: nil)
+      def merge(output_file, *input_files, attachments: nil, chapter_options: nil, tag_options: nil,
+                output_control: nil, segment_info: nil)
         raise Errors::MkvToolNixError, 'No Input File(s) given.' if input_files.nil?
 
         cmd = ['mkvmerge']

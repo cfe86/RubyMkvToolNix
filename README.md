@@ -218,6 +218,211 @@ extract_attachments('myFile.mkv', [Attachment.new(0, 'attachment1.jpeg'), 'attac
 ```
 will extract the attachments of the given file with ID 0 to `attachment1.jpeg` and ID 2 to `attachment.2.png`.
 
+### mkvmerge
+
+merges or modifies several input files by muxing it. This does not alter just metadata of a file, and instead writes a new
+file depending on the provides input files and options.
+
+#### available commands
+
+* version
+* info
+* merge
+
+`merge` covers all options except for split from [here](https://mkvtoolnix.download/doc/mkvmerge.html). It requires an input, and an 
+output file. If you just want to alter a file, e.g. removing a track, then only this file needs to be given as an input file.
+All options from the manual page are available as some kind of builder. This way, an input file with the selected options can be build, and 
+will be applied when passed to `merge`.
+The global options are seperated into different option builder. Those ones are:
+* Chapter
+* Tags
+* Segment Info
+* General Output
+* Attachments
+
+To build an option or an input file, mkvmerge provides already methods to do so:
+* build_attachment(file)
+* build_chapter
+* build_segment_info
+* build_tags(file)
+* build_output_control
+* build_input_file(file)
+
+For specific track options for an input file, `InputFile` offers a `build_track_option(track_id)` method, which offers 
+options for this specific track and afterwards added to the input file via `add_track_options`
+
+For specific details what options are available, just check the manual page. The available options are:
+**Attachment:**
+* with_mime_type
+* with_name
+* with_description
+
+**Chapter:**
+* with_chapter_language
+* with_chapter_charset
+* generate_chapter_every_secs
+* generate_chapter_name_template
+* generate_chapter_cue_name_format
+* with_chapters_file
+
+**Output Control:**
+* with_title
+* with_default_language
+* with_track_order
+* with_cluster_length_in_blocks
+* with_meta_seek_element
+* with_timestamp_scale
+* with_durations_enabled
+* without_cues
+* without_date
+* with_disabled_lacing
+* without_track_statistics_tags
+* without_language_ietf
+
+**Segment Info:**
+* for_file
+* for_uids
+
+**Tags:**
+* can only be build by file
+
+**Input File:**
+* with_audio_tracks
+* with_video_tracks
+* with_subtitle_tracks
+* with_track_tags
+* with_attachments
+* with_no_audio
+* with_no_video
+* with_no_subtitles
+* with_no_chapters
+* with_no_track_tags
+* with_no_global_tags
+* with_no_attachments
+* add_track_options
+* with_track_options
+* chapter_sync
+
+**Input Track Option**
+* with_name
+* with_language
+* with_tags
+* handle_as_aac_sbr
+* with_track_sync
+* with_cues
+* default?
+* forced?
+* hearing_impaired?
+* visual_impaired?
+* text_description?
+* original?
+* commentary?
+* reduce_audio_to_core
+* with_timestamps
+* remove_dialog_normalization_gain
+* with_default_duration_in_secs
+* fix_bitstream_timing_information
+* with_compression_mode
+* with_four_cc
+* with_dimensions
+* with_aspect_ratio
+* with_cropping
+* with_color_matrix_coefficients
+* with_color_bits_per_channel
+* with_chroma_sub_sample
+* with_cb_sub_sample
+* with_chroma_siting
+* with_color_range
+* with_color_transfer_characteristics
+* with_color_primaries
+* with_max_content_light
+* with_max_frame_light
+* with_chromaticity_coordinates
+* with_white_color_coordinate
+* with_max_luminance
+* with_min_luminance
+* with_projection_type
+* with_projection_private
+* with_projection_pose_yaw
+* with_projection_pose_pitch
+* with_projection_pose_roll
+* with_field_order
+* with_stereo_mode
+* with_sub_charset
+
+For example, to specify that a meta seek element,
+no cues and no date are written, a the general output can be build accordingly:
+```ruby
+output_control = merge.build_output_control
+output_control.with_meta_seek_element.without_cues.without_date
+```
+just pass this `output_control` to `merge`, and the options will be applied.
+
+#### Example
+
+##### merge video and audio from 2 different files
+```ruby
+video_input = merge.build_input_file('pathToVideo')
+# we don't want the audio from this video file
+video_input.with_no_audio
+audio_input = merge.build_input_file('pathToAudio')
+# we don't want the video from this audio file, if it has any
+audio_input.with_no_video
+
+# lets take the output control as defined earlier
+merge.merge('outputFilePath', video_input, audio_input, output_control: output_control)
+# => nil, or an error and the merged file is written to the given path
+```
+
+##### add 2 Attachments, chapters and tags to an mkv file
+```ruby
+attachment1 = merge.build_attachment('pathToAttachment1')
+# no mime type provided, so it will be determined automatically by mkvmerge
+attachment1.with_name('My first Attachment').with_description('and the description')
+
+attachment2 = merge.build_attachment('pathToAttachment2')
+attachment2.with_name('the 2nd one').with_mime_type('mime/type')
+
+chapters = merge.build_chapter.with_chapters_file('pathToChapters.xml')
+tags = merge.build_tags('pathToTags.xml')
+
+input_file = merge.build_input_file('pathToInputFile')
+
+merge.merge('outputFle', input_file, attachments: [attachment1, attachment2], chapter_options: chapters,
+            tag_options: tags)
+# => nil, and outPutFile now contains the attachments, chapers and tag options
+```
+
+##### switch the track order of an mkv file 
+assuming we have 1 video, 2 audios, and 2 subtitles
+```ruby
+output_control = merge.build_output_control
+# the order can be given as a String, hash, Array, or TrackOrder object
+# mkv always builds video, audio and subtitle order, so we just need to switch the audio ids, video will be the first
+# and subtitles the last tracks
+output_control.with_track_order({ file_index: 0, track_index: 2 }, [0, 1])
+
+input_file = merge.build_input_file('pathToInputFile')
+
+merge.merge('outputFle', input_file, output_control: output_control)
+# => nil, and the new file has the audio tracks switched
+```
+
+##### switch rename the first audio track and language
+the first audio stream in this example has ID 1
+```ruby
+input_file = merge.build_input_file('pathToInputFile')
+track_option = input_file.build_track_option(1)
+track_option.with_name('the new track name')
+# this will also set the language_ietf field
+track_option.with_language('en')
+
+input_file.add_track_options(track_option)
+
+merge.merge('outputFle', input_file)
+```
+
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/cfe86/mkvtoolnix. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/cfe86/mkvtoolnix/blob/master/CODE_OF_CONDUCT.md).

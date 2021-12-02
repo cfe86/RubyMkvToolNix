@@ -33,7 +33,7 @@ module MkvToolNix
             when Array
               next ["#{it[0]}:#{it[1]}"]
             when Hash
-              next ["#{it[:video_index]}:#{it[:track_id]}"]
+              next ["#{it[:file_index]}:#{it[:track_id]}"]
             end
           end.join(',')
 
@@ -104,14 +104,14 @@ module MkvToolNix
 
       class TrackOrder
 
-        attr_reader :video_index, :track_id
+        attr_reader :file_index, :track_id
 
         def to_s
-          "#{@video_index}:#{@track_id}"
+          "#{@file_index}:#{@track_id}"
         end
 
-        def initialize(video_index, track_id)
-          @video_index = video_index
+        def initialize(file_index, track_id)
+          @file_index = file_index
           @track_id = track_id
         end
       end

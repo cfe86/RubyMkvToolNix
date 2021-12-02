@@ -30,7 +30,7 @@ module MkvToolNix
           self
         end
 
-        def _handle_as_aac_sbr(enabled: true)
+        def handle_as_aac_sbr(enabled: true)
           @aac_sbr = "#{@track_id}:#{enabled ? 1 : 0}"
           self
         end

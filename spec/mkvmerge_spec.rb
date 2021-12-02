@@ -73,7 +73,7 @@ RSpec.describe MkvToolNix::MkvToolNix do
                           .with_timestamp_scale(10_000).with_durations_enabled.without_cues.without_date
                           .with_disabled_lacing.without_track_statistics_tags.without_language_ietf
                           .with_track_order([[1, 1], MkvToolNix::Types::Merge::TrackOrder.new(1, 2),
-                                             { video_index: 1, track_id: 3 }])
+                                             { file_index: 1, track_id: 3 }])
                           .with_title('myTitle').with_default_language('en')
 
     merge.merge('myFile', merge.build_input_file('inputFile'), output_control: output_control)
@@ -120,7 +120,7 @@ RSpec.describe MkvToolNix::MkvToolNix do
                       .with_no_video.with_no_subtitles.with_no_chapters.with_no_track_tags.with_no_global_tags
                       .with_no_attachments
     track1 = input_file.build_track_option('1').with_name('track1Name').with_language('en').with_tags('tagFile')
-                       ._handle_as_aac_sbr.with_cues.default?.hearing_impaired?.visual_impaired?.text_description?
+                       .handle_as_aac_sbr.with_cues.default?.hearing_impaired?.visual_impaired?.text_description?
                        .original?.commentary?.reduce_audio_to_core.with_timestamps('timestampFile')
                        .remove_dialog_normalization_gain.with_default_duration_in_secs(12_345)
                        .fix_bitstream_timing_information.with_compression_mode.with_four_cc('fourCC')

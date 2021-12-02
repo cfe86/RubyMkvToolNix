@@ -2,14 +2,14 @@
 
 Gem::Specification.new do |spec|
   spec.name          = 'mkvtoolnix'
-  spec.version       = '0.7.0'
+  spec.version       = '1.0.0'
   spec.authors       = ['Christian Feier']
   spec.email         = ['Christian.Feier@gmail.com']
 
-  spec.summary       = 'A wrapper for MkvToolNix https://mkvtoolnix.download/ to create, alter and inspect MKV files. For more'\
-                        ' information, please check the github page: https://github.com/cfe86/RubyMkvToolNix'
+  spec.summary       = 'A wrapper for MkvToolNix https://mkvtoolnix.download/ to create, alter and inspect MKV files.'\
+                       'For more information, please check the github page: https://github.com/cfe86/RubyMkvToolNix'
   spec.description   = 'A wrapper for MkvToolNix https://mkvtoolnix.download/ to create, alter and inspect MKV files.'\
-                       'Currently mkvpropedit and mkvextract are fully implemented. mkvmerge is in progress.'
+                       'Currently mkvpropedit and mkvextract are fully implemented. mkvmerge is completed except the split options.'
   spec.homepage      = 'https://github.com/cfe86/RubyMkvToolNix'
   spec.license       = 'MIT'
   spec.required_ruby_version = '>= 2.5.0'
