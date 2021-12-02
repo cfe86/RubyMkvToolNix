@@ -1,5 +1,35 @@
 # RubyMkvToolNix
 
+- [RubyMkvToolNix](#rubymkvtoolnix)
+    * [Installation](#installation)
+    * [Usage](#usage)
+        + [Create MkvToolNix](#create-mkvtoolnix)
+        + [mkvpropedit](#mkvpropedit)
+            - [available commands](#available-commands)
+            - [Selectors](#selectors)
+            - [Examples](#examples)
+                * [Set Tags](#set-tags)
+                * [Remove Property](#remove-property)
+                * [Remove Attachment](#remove-attachment)
+        + [mkvextract](#mkvextract)
+            - [available commands](#available-commands-1)
+            - [Tracks/Attachments list](#tracks-attachments-list)
+            - [Examples](#examples-1)
+                * [extract Tags](#extract-tags)
+                * [extract Tracks](#extract-tracks)
+                * [extract Attachments](#extract-attachments)
+        + [mkvmerge](#mkvmerge)
+            - [available commands](#available-commands-2)
+            - [Example](#example)
+                * [merge video and audio from 2 different files](#merge-video-and-audio-from-2-different-files)
+                * [add 2 Attachments, chapters and tags to an mkv file](#add-2-attachments--chapters-and-tags-to-an-mkv-file)
+                * [switch the track order of an mkv file](#switch-the-track-order-of-an-mkv-file)
+                * [switch rename the first audio track and language](#switch-rename-the-first-audio-track-and-language)
+    * [Contributing](#contributing)
+    * [License](#license)
+    * [Code of Conduct](#code-of-conduct)
+    
+
 RubyMkvToolNix is a work in-progress wrapper for [MkvToolNix](https://mkvtoolnix.download/) 
 
 Currently the following modules are implemented (fully):
