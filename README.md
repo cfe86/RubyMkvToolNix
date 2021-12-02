@@ -6,7 +6,7 @@ Currently the following modules are implemented (fully):
 * [mkvpropedit](https://mkvtoolnix.download/doc/mkvpropedit.html)
 * [mkvextract](https://mkvtoolnix.download/doc/mkvextract.html)
 
-Partly implemented (aka just started :p, this one is pretty complex, and I am still thinking about how to make it as simple as possible without sacrificing functionality)
+Fully implemented, except `split`:
 * [mkvmerge](https://mkvtoolnix.download/doc/mkvmerge.html)
 
 ## Installation
